@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="author" content="Justin Svegliato" />
+        <title>Svegliator v0.1</title>
+
+        <link href="assets/css/bootstrap.css" rel="stylesheet">
+        <link href="assets/css/jquery-linedtextarea.css" rel="stylesheet">
+        <link href="assets/css/style.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="../../assets/js/html5shiv.js"></script>
+          <script src="../../assets/js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div id="navigation" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <span id="brand" class="navbar-brand">Sveg<strong class="text-primary">liator</strong></span>
+                </div>
+
+                <div class="btn-group nav navbar-form navbar-right">
+                    <button id="compile-button" class="btn btn-primary">Compile</button>
+                </div>          
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Programs <b class="caret"></b></a>
+                            <ul id="programs" class="dropdown-menu"></ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>       
+
+        <div id="content" class="container">
+            <div class="row">                                
+                <div class="col-xs-6">
+                    <textarea id="program-input" placeholder="Type your program here..."></textarea>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="row">                        
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="col-xs-12">
+                                    <div class="panel-title">
+                                        <span class="panel-header">Log</span>
+                                        <div id="log-jump-controls" class="btn-group pull-right">
+                                            <button id="error-jump-button" type="button" class="btn btn-xs btn-danger jump-button" disabled>Error</button>
+                                            <button id="warning-jump-button" type="button" class="btn btn-xs btn-warning jump-button" disabled>Warning</button>
+                                            <button id="scanner-jump-button" type="button" class="btn btn-xs btn-success jump-button" disabled>Scanner</button>
+                                            <button id="parser-jump-button" type="button" class="btn btn-xs btn-success jump-button" disabled>Parser</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="log-display">
+                                <table class="table table-hover table-condensed panel-body">
+                                    <tbody></tbody>
+                                </table>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="col-xs-12">
+                                    <div class="panel-title">
+                                        <span class="panel-header">Symbol Table</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="symbol-table-display">
+                                <table class="table table-hover table-condensed panel-body">
+                                    <thead>
+                                        <tr class="success">
+                                            <th class='text-center'>Scope</th>
+                                            <th class='text-center'>Line Declared</th>
+                                            <th class='text-center'>Name</th>
+                                            <th class='text-center'>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>       
+
+        <!-- Dependencies needed for all aspects of the application -->
+        <script src="assets/js/jquery.js"></script>
+        <script src="assets/js/jquery-linedtextarea.js"></script>
+        <script src="assets/js/bootstrap.js"></script>
+        <script src="assets/js/utils.js"></script>
+
+        <script src="assets/js/system/display/log-display.js"></script>
+        <script src="assets/js/system/display/symbol-table-display.js"></script>
+        <script src="assets/js/system/display/program-selector.js"></script>
+
+        <script src="assets/js/system/control.js"></script>
+
+        <script src="assets/js/system/compiler/symbol-table.js"></script>
+        <script src="assets/js/system/compiler/token.js"></script>
+        <script src="assets/js/system/compiler/scanner.js"></script>
+        <script src="assets/js/system/compiler/parser.js"></script>        
+    </body>
+</html>
