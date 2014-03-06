@@ -8,6 +8,7 @@
         <link href="assets/css/bootstrap.css" rel="stylesheet">
         <link href="assets/css/jquery-linedtextarea.css" rel="stylesheet">
         <link href="assets/css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="assets/dist/themes/default/style.min.css" />
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -23,12 +24,12 @@
                     <span id="brand" class="navbar-brand">Sveg<strong class="text-primary">liator</strong></span>
                 </div>
 
-                <div class="btn-group nav navbar-form navbar-right">
+                <div class="fadeIn btn-group nav navbar-form navbar-right">
                     <button id="compile-button" class="btn btn-primary">Compile</button>
                 </div>          
 
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
+                <div class="collapse navbar-collapse">
+                    <ul class="fadeIn nav navbar-nav">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Programs <b class="caret"></b></a>
                             <ul id="programs" class="dropdown-menu"></ul>
@@ -38,9 +39,9 @@
             </div>
         </div>       
 
-        <div id="content" class="container">
+        <div id="content" class="container fadeIn">
             <div class="row">                                
-                <div class="col-xs-6">
+                <div id="program-input-container" class="col-xs-6">
                     <textarea id="program-input" placeholder="Type your program here..."></textarea>
                 </div>
 
@@ -49,32 +50,35 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="col-xs-12">
-                                    <div class="panel-title">
-                                        <span class="panel-header">Log</span>
-                                        <div id="log-jump-controls" class="btn-group pull-right">
+                                    <h6 class="panel-title">Log</h6>
+                                    <span id="log-controls" class="pull-right">
+                                        <button id="verbose-button" type="button" class="btn btn-xs btn-primary pull-right">Verbose</button>                                            
+
+                                        <span class="btn-group pull-right">
                                             <button id="error-jump-button" type="button" class="btn btn-xs btn-danger jump-button" disabled>Error</button>
                                             <button id="warning-jump-button" type="button" class="btn btn-xs btn-warning jump-button" disabled>Warning</button>
                                             <button id="scanner-jump-button" type="button" class="btn btn-xs btn-success jump-button" disabled>Scanner</button>
                                             <button id="parser-jump-button" type="button" class="btn btn-xs btn-success jump-button" disabled>Parser</button>
-                                        </div>
-                                    </div>
+                                        </span>
+                                    </span>
                                 </div>
-                            </div>
-
+                            </div>                           
+                            
                             <div id="log-display">
                                 <table class="table table-hover table-condensed panel-body">
-                                    <tbody></tbody>
+                                    <tbody>
+                                        <tr><td class="lead text-center">A program has not yet been compiled</td></tr>
+                                    </tbody>
                                 </table>
                             </div> 
                         </div>
                     </div>
+
                     <div class="row">                        
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="col-xs-12">
-                                    <div class="panel-title">
-                                        <span class="panel-header">Symbol Table</span>
-                                    </div>
+                                    <h6 class="panel-title">Symbol Table</h6>
                                 </div>
                             </div>
 
@@ -88,27 +92,54 @@
                                             <th class='text-center'>Type</th>
                                         </tr>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody>
+                                        <tr><td class="lead text-center" colspan="4">No symbols</td></tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>               
             </div>
-        </div>       
+
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="col-xs-12">
+                            <h6 class="panel-title">Concrete Syntax Tree</h6>
+                        </div>
+                    </div>
+
+                    <div id="tree-display">
+                        <h6 class="lead text-center">No concrete syntax tree</h6>
+                    </div>
+                    
+                    <div class="panel-footer">
+                        <span id="token-stream" class="lead panel-title">No tokens</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>     
 
         <!-- Dependencies needed for all aspects of the application -->
         <script src="assets/js/jquery.js"></script>
+        <script src="assets/dist/jstree.js"></script>
         <script src="assets/js/jquery-linedtextarea.js"></script>
         <script src="assets/js/bootstrap.js"></script>
         <script src="assets/js/utils.js"></script>
+        <script src="assets/js/tree-model.js"></script>
+        <script src="assets/js/marquee.js"></script>
 
         <script src="assets/js/system/display/log-display.js"></script>
+        <script src="assets/js/system/display/tree-display.js"></script>
         <script src="assets/js/system/display/symbol-table-display.js"></script>
-        <script src="assets/js/system/display/program-selector.js"></script>
+        <script src="assets/js/system/display/token-stream-display.js"></script>
+        <script src="assets/js/system/display/program-selector.js"></script>        
 
         <script src="assets/js/system/control.js"></script>
-
+        <script src="assets/js/system/compiler/nonterminal.js"></script>
+        <script src="assets/js/system/compiler/concrete-syntax-tree.js"></script>
         <script src="assets/js/system/compiler/symbol-table.js"></script>
         <script src="assets/js/system/compiler/token.js"></script>
         <script src="assets/js/system/compiler/scanner.js"></script>

@@ -1,4 +1,3 @@
-
 /* Template-specific stuff
  *
  * Customizations just for the templateâ€”these are not necessary for anything
@@ -113,27 +112,47 @@ body {
 }
 
 #program-input {
-    height: 538px;
-    width: 435px;
+    height: 366px;
+    width: 440px;
     border-radius: 4px;
 }
 
 #log-display {
-    height: 300px;
+    height: 167px;
     overflow-x: hidden;
     overflow-y: auto;
 }
 
 #symbol-table-display {
-    height: 125px;
+    height: 100px;
     overflow-x: hidden;
     overflow-y: auto;
 }
 
-.panel-header {
-    font-size: 17.5px;
+#tree-display {
+    height: 130px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
-#log-jump-controls {
-    margin-top: 2px;
+#log-controls {
+    position: absolute;
+    top: -3px;
+    left: 190px;
+}
+
+#program-input-container {
+    margin-left: -13px;
+}
+
+#verbose-button {
+    margin-left: 10px;
+}
+
+.token-stream-droplet {
+    margin-right: 20px;
+}
+
+.fadeIn {
+    display: none;
 }
