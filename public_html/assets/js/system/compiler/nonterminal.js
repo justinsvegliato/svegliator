@@ -1,5 +1,10 @@
+/** 
+ * A class that contains all information regarding nonterminals
+ */
+
 function Nonterminal() {};
 
+// An anumerated field containing the names of all kinds of nonterminals
 Nonterminal.Kind = {                
     PROGRAM: {
         value: "Program"     

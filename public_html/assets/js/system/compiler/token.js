@@ -1,17 +1,26 @@
+/** 
+ * A class that contains all information regarding tokens
+ */
+
+// Creates a new token by taking in it's kind, line number, and value
 function Token(kind, lineNumber, value) {
     this.kind = kind;
     this.lineNumber = lineNumber;
     this.value = value;  
     
+    // Checks if this token is of the specified type
     this.is = function(kind) {
         return this.kind === kind;
     };
 };
 
+// Function similar to a factory - in essence it just creates tokens
 Token.create = function(kind, lineNumber, value) {
     return new Token(kind, lineNumber, value);
 };
 
+// An enumerated field that keeps track of the name, pattern, and token constructor for
+// each kind
 Token.Kind = {                
     IDENTIFIER: {
         name: "identifier",
