@@ -1,5 +1,5 @@
 /** 
- * The scanner class which analyzes each token to ensure that they are valid. In other words,
+ * The scanner class analyzes each token to ensure that they are valid. In other words,
  * this class checks if each word is part of the language.
  */
 
