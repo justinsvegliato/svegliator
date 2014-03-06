@@ -1,9 +1,17 @@
+/** 
+ * A class that displays the example programs and populates the editor.
+ */
+
 function ProgramSelector() {};
 
+// The HTML elements that will be displayed to the screen
 ProgramSelector.template = "<li><a id='{0}'>{1}</a></li>";
+
+// The DOM elements used for the program selector
 ProgramSelector.programList = $("#programs");
 ProgramSelector.programLinkId = "#programs a";
 
+// All the example programs
 ProgramSelector.programs = {
     "complex correct program 1": 
         '{\n' +
@@ -182,7 +190,7 @@ ProgramSelector.programs = {
         '        }\n' +
         '    }\n' +
         '}$\n',
-    "complex incorrect program 5":
+    "complex incorrect program 6":
         '{\n' +
         '    if d == true) {\n' +
         '        int c\n' +
@@ -195,12 +203,14 @@ ProgramSelector.programs = {
         
 };
 
+// Populates the program dropdown with all of the programs
 ProgramSelector.initialize = function() {
     for (var key in ProgramSelector.programs) {
         ProgramSelector.programList.append(ProgramSelector.template.format(key, toTitleCase(key)));
     }
 };
 
+// Pushes the corresponding code to the editor
 ProgramSelector.populateTextarea = function(programId) {
     Control.programInput.empty();
     

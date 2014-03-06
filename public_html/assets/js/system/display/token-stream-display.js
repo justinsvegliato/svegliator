@@ -1,8 +1,13 @@
-function TokenStreamDisplay() {
-}
-;
+/** 
+ * A class that displays the token stream.
+ */
 
+function TokenStreamDisplay() {};
+
+// The DOM element to be used throughout the code
 TokenStreamDisplay.display = $("#token-stream");
+
+// HTML elements that will be displayed to the screen
 TokenStreamDisplay.tokenTemplate = '<span class="token-stream-droplet">\
                                         <small>\
                                             <strong class="text-info">{0}</strong> \
@@ -12,17 +17,22 @@ TokenStreamDisplay.tokenTemplate = '<span class="token-stream-droplet">\
                                     </span>';
 TokenStreamDisplay.marqueeTemplate = '<marquee id="token-marquee" behavior="scroll" scrollamount="3" direction="left" width="940">{0}</marquee>';
 
+// A variable the keeps track of the current token ids
 TokenStreamDisplay.tokenId = 0;
 
+// Populates the token stream display with tokens from the scanner
 TokenStreamDisplay.populate = function(tokens) {
+    // Empties out old content
     TokenStreamDisplay.display.empty();
 
+    // Builds the entire list of tokens and displays it to the screen
     var html = "";
     for (var i = 0; i < tokens.length; i++) {
         html += TokenStreamDisplay.tokenTemplate.format(i, tokens[i].kind.name, tokens[i].value);
     }
-
     TokenStreamDisplay.display.append(TokenStreamDisplay.marqueeTemplate.format(html));
+    
+    // Registers the element as a smooth marquee with stop, start, and drag features
     $("#token-marquee").marquee('pointer').mouseover(function() {
         $(this).trigger('stop');
     }).mouseout(function() {
@@ -38,6 +48,7 @@ TokenStreamDisplay.populate = function(tokens) {
     });
 };
 
+// Clears the token stream display
 TokenStreamDisplay.clear = function() {
     TokenStreamDisplay.display.html("No tokens");
     TokenStreamDisplay.tokenId = 0;

@@ -8,7 +8,7 @@
         <link href="assets/css/bootstrap.css" rel="stylesheet">
         <link href="assets/css/jquery-linedtextarea.css" rel="stylesheet">
         <link href="assets/css/style.css" rel="stylesheet">
-        <link rel="stylesheet" href="assets/dist/themes/default/style.min.css" />
+        <link rel="stylesheet" href="assets/js-tree/themes/default/style.min.css" />
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -63,7 +63,7 @@
                                     </span>
                                 </div>
                             </div>                           
-                            
+
                             <div id="log-display">
                                 <table class="table table-hover table-condensed panel-body">
                                     <tbody>
@@ -113,7 +113,7 @@
                     <div id="tree-display">
                         <h6 class="lead text-center">No concrete syntax tree</h6>
                     </div>
-                    
+
                     <div class="panel-footer">
                         <span id="token-stream" class="lead panel-title">No tokens</span>
                     </div>
@@ -124,19 +124,21 @@
 
         <!-- Dependencies needed for all aspects of the application -->
         <script src="assets/js/jquery.js"></script>
-        <script src="assets/dist/jstree.js"></script>
+        <script src="assets/dist/js-tree/jstree.js"></script>
         <script src="assets/js/jquery-linedtextarea.js"></script>
         <script src="assets/js/bootstrap.js"></script>
         <script src="assets/js/utils.js"></script>
         <script src="assets/js/tree-model.js"></script>
         <script src="assets/js/marquee.js"></script>
 
+        <!-- Dependencies need for displaying data to the screen -->
         <script src="assets/js/system/display/log-display.js"></script>
         <script src="assets/js/system/display/tree-display.js"></script>
         <script src="assets/js/system/display/symbol-table-display.js"></script>
         <script src="assets/js/system/display/token-stream-display.js"></script>
         <script src="assets/js/system/display/program-selector.js"></script>        
 
+        <!-- Dependencies need to compile the code -->
         <script src="assets/js/system/control.js"></script>
         <script src="assets/js/system/compiler/nonterminal.js"></script>
         <script src="assets/js/system/compiler/concrete-syntax-tree.js"></script>
