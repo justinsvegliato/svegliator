@@ -1,31 +1,36 @@
-function SymbolTable() {};
+function SymbolTable() {
+    this.scopeLevelId = 0;
+    this.tree = new TreeModel();
+    this.currentScope = this.tree.parse(new Scope(this.scopeLevelId));
+};
 
-SymbolTable.scopes = [];
-
-SymbolTable.addSymbol = function(type, variable, scopeLevel, lineDeclared) {
-    if (scopeLevel < SymbolTable.scopes.length) {
-        var scope = SymbolTable.scopes[scopeLevel];
-        if (!(variable in scope)) {
-            scope[variable] = new Symbol(type, variable, 0);
-            SymbolTableDisplay.addSymbol(scopeLevel, lineDeclared, variable, type);
-            return true;
-        }           
-        return false;
-    }
+SymbolTable.prototype.addSymbol = function(type, variable, lineDeclared) {
+    if (!(variable in this.currentScope.model.variables)) {
+        var symbol = new Symbol(type, variable, 0);
+        this.currentScope.model.variables[variable] = symbol;
+        SymbolTableDisplay.addSymbol(this.currentScope.model.level, lineDeclared, variable, type);
+        return symbol;
+    }           
     return false;
 };
 
-SymbolTable.addScope = function() {
-    SymbolTable.scopes.push({});
+SymbolTable.prototype.enterScope = function() {
+    var scope = this.tree.parse(new Scope(this.scopeLevelId++));
+    this.currentScope.addChild(scope);
+    this.currentScope = scope;
 };
 
-SymbolTable.clear = function() {
-    SymbolTable.scopes = [];
-    SymbolTableDisplay.clear();
+SymbolTable.prototype.exitScope = function() {
+    this.currentScope = this.currentScope.parent;
 };
 
 function Symbol(type, variable, value) {
     this.type = type;
     this.variable = variable;
     this.value = value;    
+};
+
+function Scope(level) {
+    this.level = level;
+    this.variables = {};
 };

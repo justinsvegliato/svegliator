@@ -14,11 +14,12 @@ SymbolTableDisplay.addSymbol = function(scopeLevel, lineDeclared, variable, type
 };
 
 SymbolTableDisplay.clear = function() {
-    SymbolTableDisplay.display.empty();
+    SymbolTableDisplay.display.html('<tr><td class="lead text-center" colspan="4">No symbols</td></tr>');
     SymbolTableDisplay.symbols = [];
 };
 
-SymbolTableDisplay.populate = function() {
+SymbolTableDisplay.populate = function() {    
+    SymbolTableDisplay.display.empty();
     for (var i = 0; i < SymbolTableDisplay.symbols.length; i++) {
         SymbolTableDisplay.display.append(SymbolTableDisplay.symbols[i]);
     }
