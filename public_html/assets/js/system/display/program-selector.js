@@ -13,7 +13,7 @@ ProgramSelector.programLinkId = "#programs a";
 
 // All the example programs
 ProgramSelector.programs = {
-    "complex correct program 1": 
+    "correct program 1": 
         '{\n' +
         '    int a\n' + 
         '    a = 1\n' +
@@ -34,7 +34,7 @@ ProgramSelector.programs = {
         '    b = \"blackstone\"\n' +
         '    print(b)\n' +
         '} $',
-    "complex correct program 2" : 
+    "correct program 2" : 
         '{\n' + 
         '    int a\n' +
         '    a = 0\n' + 
@@ -58,7 +58,7 @@ ProgramSelector.programs = {
         '    boolean d\n' +
         '    d = (true == (true == false))\n' +
         '} $',
-    "complex correct program 3" : 
+    "correct program 3" : 
         '{\n' + 
         '    boolean d\n' +
         '    d = (a == b)\n' +
@@ -82,7 +82,7 @@ ProgramSelector.programs = {
         '        }\n' +
         '    }\n' +
         '} $',
-    "complex correct program 4" : 
+    "correct program with warnings" : 
         '{\n' + 
         '    if true {\n' +
         '        if (1 == 1) {}\n' +
@@ -92,58 +92,17 @@ ProgramSelector.programs = {
         '        print("justin")\n' +
         '        a = ""\n' +
         '    }\n' +
-        '} $',
-    "simple correct program 1" :  
-        '{\n' + 
-        '    {{{}}}\n' +
-        '} $',
-    "simple correct program 2" : 
-        '{\n' + 
-        '} $',
-    "complex incorrect program 1" : 
-        '{\n' + 
-        '    int a\n' +
-        '    a = 0\n' + 
-        '    \n' +
-        '    while (a = 9) {\n' +
-        '       if (a != 5) {\n' +
-        '           print("meow")\n' +
-        '       }\n' +
-        '       {\n' +
-        '           a = 1 + a\n' +
-        '           string b\n' +
-        '           b = "next cat"\n' +
-        '           print(b)\n' +
-        '       }\n' +
-        '    }\n' +
-        '    \n' +
-        '    {}\n' +
-        '    boolean c\n' +
-        '    c = true\n' +
-        '    \n' + 
-        '    boolean d\n' +
-        '    d = (true == (true == false))\n' +
         '}',
-    "complex incorrect program 2" : 
+     "incorrect program 1" : 
         '{\n' + 
-        '    if {\n' +
-        '        if (1 == 1) {}\n' +
-        '        while ("string" == a) {\n' +
-        '           while false {}\n' +
-        '        }\n' +
-        '        print("justin")\n' +
-        '        a = ""\n' +
-        '    }\n' +
-        '} $',
-    "complex incorrect program 3" : 
-        '{\n' + 
-        '    boolean\n' +
-        '    d = (a == b)\n' +
+        '    ~!@#%^&*_+{}|:<>?[]\;\',./\n' +
+        '    bool ean d\n' +
+        '    A = (a == b)\n' +
         '    d = (1 == a)\n' +
-        '    d = (1 != 1)\n' +
-        '    d = ("string" == 1)\n' +
+        '    dd = (11 != 1)\n' +
+        '    B = ("string" == 1)\n' +
         '    d = (a != "string")\n' +
-        '    d = ("string" != "string")\n' +
+        '    d = ("str#ing" != "string")\n' +
         '    \n' +
         '    if (d == true) {\n' +
         '        int c\n' +
@@ -159,9 +118,33 @@ ProgramSelector.programs = {
         '        }\n' +
         '    }\n' +
         '} $',
-    "complex incorrect program 4": 
+    "incorrect program 2" : 
+        '{\n' + 
+        '    int a\n' +
+        '    a = \n' + 
+        '    \n' +
+        '    while a = 9) \n' +
+        '       if (a != 5) {\n' +
+        '           print("meow")\n' +
+        '       }\n' +
+        '       {\n' +
+        '           a = 1 + a\n' +
+        '           string b\n' +
+        '           b = "next cat"\n' +
+        '           print(\n' +
+        '       }\n' +
+        '    }\n' +
+        '    \n' +
+        '    {}\n' +
+        '    boolean c\n' +
+        '    c = true\n' +
+        '    \n' + 
+        '    boolean d\n' +
+        '    d = (true == (true == false))\n' +
+        '} $',
+    "incorrect program 3": 
         '{\n' +
-        '    in#t a\n' + 
+        '    int a\n' + 
         '    a = 1\n' +
         '    {\n' +
         '        int a\n' +
@@ -169,38 +152,34 @@ ProgramSelector.programs = {
         '        print(a)\n' +
         '    }\n' +
         '\n' +
-        '    string b\n$' +
+        '    string b\n' +
         '    b = \"alan\"\n' +
-        '    if (a == 1) {\n' +
-        '        print(b)\n' +
-        '    }\n' +
+        '    if (a == 1 {\n' +
+        '        print(while (a == 5) {})\n' +
+        '    } $\n' +
         '\n' +
         '    string c\n' +
         '    c = \"james\"\n' +
         '    b = \"blackstone\"\n' +
-        '    print(b)\n' +
+        '    print(if (a == 5) {})\n' +
         '} $',
-    "complex incorrect program 5":
+    "incorrect program 4":
         '{\n' +
-        '    if (d == true) {\n' +
+        '    if (5 == "string") {\n' +
         '        int c\n' +
-        '        c = 1 + d\n' +
+        '        int d \n' +
+        '        int d \n' +
+        '        d = 0\n' +
+        '        c = d + 1\n' +
+        '        c = 1 + 1\n' + 
         '        if (c == 1) {\n' +
-        '            print()\n' +
+        '            a\n' +
         '        }\n' +
+        '        boolean\n' +
+        '        int\n' +
+        '        string\n' +
         '    }\n' +
-        '}$\n',
-    "complex incorrect program 6":
-        '{\n' +
-        '    if d == true) {\n' +
-        '        int c\n' +
-        '        c = 1 + d\n' +
-        '        if (c == 1) {\n' +
-        '            print()\n' +
-        '        }\n' +
-        '    }\n' +
-        '}$\n'
-        
+        '} $\n'        
 };
 
 // Populates the program dropdown with all of the programs

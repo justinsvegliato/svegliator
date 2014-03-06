@@ -69,10 +69,10 @@ Parser.parseBlock = function(programNode) {
                 Parser.symbolTable.exitScope();                
                 return true;
             }
-            LogDisplay.logParserErrorResult("Expecting closing brace but receved", closingBrace);
+            LogDisplay.logParserErrorResult("Expecting closing brace but received", closingBrace);
             return false;
         }
-        LogDisplay.logParserErrorResult("Expecting a statement list but receved", Parser.peekAtNextToken());
+        LogDisplay.logParserErrorResult("Expecting a statement list but received", Parser.peekAtNextToken());
         return false;
     }
     return false;
@@ -93,10 +93,10 @@ Parser.parseStatementList = function(blockNode) {
             if (Parser.parseStatementList(statementListNode)) {
                 return true;
             }
-            LogDisplay.logParserErrorResult("Expecting a print statement, an identifier, a variable type, a while statement, an if statement, or a block statement but receved", Parser.peekAtNextToken());
+            LogDisplay.logParserErrorResult("Expecting a print statement, an identifier, a variable type, a while statement, an if statement, or a block statement but received", Parser.peekAtNextToken());
             return false;
         }
-        LogDisplay.logParserErrorResult("Expecting a print statement, an identifier, a variable type, a while statement, an if statement, or a block statement but receved", Parser.peekAtNextToken());
+        LogDisplay.logParserErrorResult("Expecting a print statement, an identifier, a variable type, a while statement, an if statement, or a block statement but received", Parser.peekAtNextToken());
         return false;
     }
 
@@ -186,7 +186,7 @@ Parser.parseWhileStatement = function(statementNode) {
             LogDisplay.logParserErrorResult("Expecting block but received", Parser.peekAtNextToken());
             return false;
         }
-        LogDisplay.logParserErrorResult("Expecting expression but received", Parser.peekAtNextToken());
+        LogDisplay.logParserErrorResult("Expecting boolean expression but received", Parser.peekAtNextToken());
         return false;
     }
     return false;
@@ -213,7 +213,7 @@ Parser.parseIfStatement = function(statementNode) {
             LogDisplay.logParserErrorResult("Expecting block but received", Parser.peekAtNextToken());
             return false;
         }
-        LogDisplay.logParserErrorResult("Expecting expression but received", Parser.peekAtNextToken());
+        LogDisplay.logParserErrorResult("Expecting boolean expression but received", Parser.peekAtNextToken());
         return false;
     }
     return false;

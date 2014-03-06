@@ -49,7 +49,7 @@ Scanner.scan = function(input) {
                         
                         // Print out a warning if the end of file token is found before the end of the file
                         if ((lineNumber < lines.length) || (i < candidateLexemes.length - 1)) {
-                            LogDisplay.logScannerWarningResult("Unexpected end of file character", lineNumber, candidateLexeme);
+                            LogDisplay.logScannerWarningResult("Ignoring remaing code - found unexpected end of file character", lineNumber, candidateLexeme);
                         }
                         
                         // Jump out of the lexer (you know you love this Alan)

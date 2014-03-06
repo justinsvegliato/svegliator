@@ -24,34 +24,34 @@ Token.create = function(kind, lineNumber, value) {
 Token.Kind = {                
     IDENTIFIER: {
         name: "identifier",
-        pattern: /^[a-zA-Z]$/,
+        pattern: /^[a-z]$/,
         token: function(lineNumber, value) {
             return Token.create(Token.Kind.IDENTIFIER, lineNumber, value);
         }
     },
     OPEN_BRACE: {
-        name: "open brace",
+        name: "opening brace",
         pattern: /^{$/,
         token: function(lineNumber, value) {
             return Token.create(Token.Kind.OPEN_BRACE, lineNumber, value);
         }
     },
     CLOSE_BRACE: {
-        name: "close brace",
+        name: "closing brace",
         pattern: /^}$/,
         token: function(lineNumber, value) {
             return Token.create(Token.Kind.CLOSE_BRACE, lineNumber, value);
         }
     },
     OPEN_PARENTHESIS: {
-        name: "open parenthesis",
+        name: "opening parenthesis",
         pattern: /^\($/,
         token: function(lineNumber, value) {
             return Token.create(Token.Kind.OPEN_PARENTHESIS, lineNumber, value);
         }
     },
     CLOSE_PARENTHESIS: {
-        name: "close parenthesis",
+        name: "closing parenthesis",
         pattern: /^\)$/,
         token: function(lineNumber, value) {
             return Token.create(Token.Kind.CLOSE_PARENTHESIS, lineNumber, value);
