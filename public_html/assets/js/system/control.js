@@ -2,27 +2,32 @@ function Control() {};
 
 Control.compileButton = $("#compile-button");
 Control.programInput = $("#program-input");
-
-Control.errorJumpButton = $("#error-jump-button");
-Control.warningJumpButton = $("#warning-jump-button");
-Control.scannerJumpButton = $("#scanner-jump-button");
-Control.parserJumpButton = $("#parser-jump-button");
+Control.fadeInElement = $(".fadeIn");
 
 $(document).ready(function() {
+    Control.fadeInElement.fadeIn();
+    
     Control.programInput.linedtextarea();
 
     Control.compileButton.on("click", function() {
         LogDisplay.clear();
         SymbolTableDisplay.clear();
+        TreeDisplay.clear();
+        TokenStreamDisplay.clear();
         
         var tokens = Scanner.scan(Control.programInput.val());
         if (LogDisplay.scannerErrorResults.length <= 0) {
             var concreteSyntaxTree = Parser.parse(tokens);
             if (LogDisplay.parserErrorResults.length <= 0) {
                 SymbolTableDisplay.populate();
+                TreeDisplay.populate(concreteSyntaxTree);
             }          
-        }       
+            TokenStreamDisplay.populate(tokens);
+        } else {
+            TokenStreamDisplay.clear();
+        }
         
+        LogDisplay.summarize();
         LogDisplay.populate();
     });
 
@@ -31,24 +36,20 @@ $(document).ready(function() {
         ProgramSelector.populateTextarea($(this).attr("id"));
     });
 
-    Control.jumpToLog = function(element) {
-        if (element.length) {
-            LogDisplay.displayContainer.animate({
-                scrollTop: element.offset().top - LogDisplay.displayContainer.offset().top + LogDisplay.displayContainer.scrollTop()
-            }, 100);
-        }
-    };
-
-    Control.errorJumpButton.on("click", function() {
-        Control.jumpToLog($("#error-log"));
+    LogDisplay.errorJumpButton.on("click", function() {
+        LogDisplay.jumpToLog($("#error-log"));
     });
-    Control.warningJumpButton.on("click", function() {
-        Control.jumpToLog($("#warning-log"));
+    LogDisplay.warningJumpButton.on("click", function() {
+        LogDisplay.jumpToLog($("#warning-log"));
     });
-    Control.scannerJumpButton.on("click", function() {
-        Control.jumpToLog($("#scanner-log"));
+    LogDisplay.scannerJumpButton.on("click", function() {
+        LogDisplay.jumpToLog($("#scanner-log"));
     });
-    Control.parserJumpButton.on("click", function() {
-        Control.jumpToLog($("#parser-log"));
+    LogDisplay.parserJumpButton.on("click", function() {
+        LogDisplay.jumpToLog($("#parser-log"));
     });
+    
+    LogDisplay.verboseButton.on("click", function() {
+        LogDisplay.changeVerboseMode();
+    });   
 });
