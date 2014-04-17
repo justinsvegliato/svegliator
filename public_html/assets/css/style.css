@@ -118,13 +118,7 @@ body {
 }
 
 #log-display {
-    height: 167px;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-#symbol-table-display {
-    height: 100px;
+    height: 137px;
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -138,7 +132,7 @@ body {
 #log-controls {
     position: absolute;
     top: -3px;
-    left: 190px;
+    left: 70px;
 }
 
 #program-input-container {
@@ -155,4 +149,16 @@ body {
 
 .fadeIn {
     display: none;
+}
+
+#tree-display-container, #symbol-display-container {
+    border-top: none;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+#symbol-display-container {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 130px;
 }

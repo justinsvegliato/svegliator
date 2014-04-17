@@ -18,35 +18,45 @@ $(document).ready(function() {
 
     // Compiles the code when the button is pressed
     Control.compileButton.on("click", function() {
-        // Clears all views before doing anything
-        LogDisplay.clear();
-        SymbolTableDisplay.clear();
-        TreeDisplay.clear();
-        TokenStreamDisplay.clear();
-        
-        // Grabs the tokens from the scanner
-        var tokens = Scanner.scan(Control.programInput.val());
-        
-        // Parses the code if there were no lexing errors
-        if (LogDisplay.scannerErrorResults.length <= 0) {
-            var concreteSyntaxTree = Parser.parse(tokens);
-            
-            // If there were no parsing errors, display the symbol trable and concrete syntax tree
-            if (LogDisplay.parserErrorResults.length <= 0) {
-                SymbolTableDisplay.populate();
-                TreeDisplay.populate(concreteSyntaxTree);
-            }          
-            
-            // Always display the token stream at this point since scanner was successful
-            TokenStreamDisplay.populate(tokens);
-        } else {
-            // We clear the token stream if the lex failed
+        if (Control.programInput.val()) {
+            // Clears all views before doing anything
+            LogDisplay.clear();
+            SymbolTableDisplay.clear();
+            TreeDisplay.clear();
             TokenStreamDisplay.clear();
+
+            // Grabs the tokens from the scanner
+            var tokens = Scanner.scan(Control.programInput.val());
+
+            // Parses the code if there were no lexing errors
+            if (LogDisplay.scannerErrorResults.length <= 0) {
+                var concreteSyntaxTree = Parser.parse(tokens);
+
+                // If there were no parsing errors, display the symbol trable and concrete syntax tree
+                if (LogDisplay.parserErrorResults.length <= 0) {
+                    var abstractSyntaxTree = new AbstractSyntaxTree(concreteSyntaxTree);
+                    TreeDisplay.populateSyntaxTrees(concreteSyntaxTree, abstractSyntaxTree);
+                    SemanticAnalyzer.analyze(abstractSyntaxTree);
+                    if (LogDisplay.semanticAnalyzerErrorResults.length <= 0) {
+                        SymbolTableDisplay.populate();
+                        TreeDisplay.populateSymbolTree(SemanticAnalyzer.symbolTable);
+                    }
+                } else {
+                    TreeDisplay.clear();
+                    SymbolTableDisplay.clear();
+                }      
+
+                // Always display the token stream at this point since scanner was successful
+                TokenStreamDisplay.populate(tokens);
+            } else {
+                // We clear the token stream if the lex failed
+                TokenStreamDisplay.clear();
+            }
+
+            // Populates the logs after both parts of compilation have been completed
+            LogDisplay.summarize();
+            LogDisplay.populate();
         }
-        
-        // Populates the logs after both parts of compilation have been completed
-        LogDisplay.summarize();
-        LogDisplay.populate();
     });
 
     // Populates the program selector drop down box and places code into editor
@@ -67,6 +77,9 @@ $(document).ready(function() {
     });
     LogDisplay.parserJumpButton.on("click", function() {
         LogDisplay.jumpToLog($("#parser-log"));
+    });
+    LogDisplay.semanticAnalyzerJumpButton.on("click", function() {
+        LogDisplay.jumpToLog($("#semantic-analyzer-log"));
     });
     
     // Switches between verbose and simple mode when the button is pressed
