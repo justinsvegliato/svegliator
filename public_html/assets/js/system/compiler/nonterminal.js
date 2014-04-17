@@ -7,10 +7,10 @@ function Nonterminal() {};
 // An anumerated field containing the names of all kinds of nonterminals
 Nonterminal.Kind = {                
     PROGRAM: {
-        value: "Program"     
+        value: "Program"
     },
     BLOCK: {
-        value: "Block"       
+        value: "Block"     
     },
     STATEMENT_LIST: {
         value: "StatementList"       
@@ -53,5 +53,26 @@ Nonterminal.Kind = {
     }, 
     EPSILON: {
         value: "Epsilon"       
-    } 
+    },
+    TYPE: {
+        value: "Type"       
+    },
+    CHAR: {
+        value: "Char"       
+    },
+    DIGIT: {
+        value: "Digit"       
+    },
+    BOOL_OP: {
+        value: "BoolOp"       
+    }, 
+    BOOL_VAL: {
+        value: "BoolVal"       
+    },
+    INT_OP: {
+        value: "IntOp"
+    },
+    TEMPORARY: {
+        value: "Temporary"
+    }
 };
