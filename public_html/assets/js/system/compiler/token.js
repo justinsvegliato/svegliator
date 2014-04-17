@@ -143,7 +143,7 @@ Token.Kind = {
     },
     STRING: {
         name: "string",
-        pattern: /^".*"$/,
+        pattern: /^"[a-z\s]*"$/,
         token: function(lineNumber, value) {
             return Token.create(Token.Kind.STRING, lineNumber, value);
         }
