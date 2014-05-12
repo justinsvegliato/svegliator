@@ -13,6 +13,7 @@ LogDisplay.warningJumpButton = $("#warning-jump-button");
 LogDisplay.scannerJumpButton = $("#scanner-jump-button");
 LogDisplay.parserJumpButton = $("#parser-jump-button");
 LogDisplay.semanticAnalyzerJumpButton = $("#semantic-analyzer-jump-button");
+LogDisplay.codeGeneratorJumpButton = $("#code-generator-jump-button");
 
 // The HTML elements that encompass everything that can be printed to the log
 LogDisplay.scannerInfoRowTemplate = "<tr>\
@@ -47,6 +48,26 @@ LogDisplay.semanticAnalyzerErrorRowTemplate = "<tr>\
                                             <td><strong class='text-muted'>{0}</strong></td> \
                                             <td><strong class='text-warning'>{1}</strong></td> \
                                         </tr>";
+LogDisplay.codeGeneratorInfoRowTemplate = "<tr>\
+                                                <td><strong class='text-muted'>{0}</strong></td> \
+                                                <td colspan='2'><strong class='text-success'>{1} [ <span class='text-primary'>{2}</span> ]</strong></td> \
+                                           </tr>";
+LogDisplay.codeGeneratorErrorRowTemplate = "<tr>\
+                                                <td><strong class='text-muted'><span class='glyphicon glyphicon-remove'></span></strong></td> \
+                                                <td colspan='2'><strong class='text-danger'>{0}</strong></td> \
+                                           </tr>";
+LogDisplay.codeGeneratorInstructionRowTemplate = "<tr>\
+                                                <td><strong class='text-muted'><span class='glyphicon glyphicon-arrow-right'></span></strong></td> \
+                                                <td colspan='2'><strong class='text-success'>{0} [ <span class='text-primary'>{1}</span> ]</strong></td> \
+                                           </tr>";
+LogDisplay.codeGeneratorStringRowTemplate = "<tr>\
+                                                <td><strong class='text-muted'><span class='glyphicon glyphicon-arrow-right'></span></strong></td> \
+                                                <td colspan='2'><strong class='text-success'>{0} [ <span class='text-primary'>\"{1}\"</span> ] at location [ <span class='text-primary'>{2}</span> ]</strong></td> \
+                                           </tr>";
+LogDisplay.codeGeneratorFinalizeRowTemplate = "<tr>\
+                                                <td><strong class='text-muted'><span class='glyphicon glyphicon-th'></span></strong></td> \
+                                                <td colspan='2'><strong class='text-success'>{0} [ <span class='text-primary'>{1}</span> ] with [ <span class='text-primary'>{2}</span> ]</strong></td> \
+                                           </tr>";
 LogDisplay.headerRowTemplate = "<tr id='{2}' class='{1}'><th colspan='2'><strong>{0}</strong></th></tr>";
 LogDisplay.subheaderRowTemplate = "<tr><th colspan='2'><small>{0}</small></th></tr>";
 LogDisplay.parseSearchingCellTemplate = "Searching for [ <span class='text-primary'>{0}</span> ]";
@@ -66,11 +87,16 @@ LogDisplay.semanticAnalyzerInfoTemplate = "{0} [ <span class='text-info'>{1}</sp
 LogDisplay.scannerInfoResults = [];
 LogDisplay.scannerErrorResults = [];
 LogDisplay.scannerWarningResults = [];
+
 LogDisplay.parserInfoResults = [];
 LogDisplay.parserErrorResults = [];
+
 LogDisplay.semanticAnalyzerInfoResults = [];
 LogDisplay.semanticAnalyzerErrorResults = [];
 LogDisplay.semanticAnalyzerWarningResults = [];
+
+LogDisplay.codeGeneratorInfoResults = [];
+LogDisplay.codeGeneratorErrorResults = [];
 
 // The flag which denotes whether or not extra output should be displayed
 LogDisplay.verboseMode = false;
@@ -210,6 +236,66 @@ LogDisplay.logSemanticAnalyzerWarningResult = function(lineNumber, message, iden
     LogDisplay.semanticAnalyzerInfoResults.push(row);
 };
 
+// Logs general information for the code generator
+LogDisplay.logCodeGeneratorInfoResult = function(lineNumber, message, object) {
+    // Ceases to add to the log if errors occurred
+    if (LogDisplay.codeGeneratorErrorResults.length <= 0) {
+        var row = LogDisplay.codeGeneratorInfoRowTemplate.format(lineNumber, message, object);
+        LogDisplay.codeGeneratorInfoResults.push(row);
+    }
+};
+
+// Logs backpatching information for the code generator
+LogDisplay.logCodeGeneratorBackpatchResult = function(message, oldObject, newObject) {
+    // Ceases to add to the log if errors occurred
+    if (LogDisplay.codeGeneratorErrorResults.length <= 0) {
+        var row = LogDisplay.codeGeneratorFinalizeRowTemplate.format(message, oldObject, newObject);
+        LogDisplay.codeGeneratorInfoResults.push(row);
+    }
+};
+
+// Logs instruction creation information for the code generator
+LogDisplay.logCodeGeneratorInstructionResult = function(message, object) {
+    if (LogDisplay.codeGeneratorErrorResults.length <= 0) {
+        var row = LogDisplay.codeGeneratorInstructionRowTemplate.format(message, object);
+        LogDisplay.codeGeneratorInfoResults.push(row);
+    }
+};
+
+// Logs string creation information for the code generator
+LogDisplay.logCodeGeneratorStringResult = function(message, object, memoryLocation) {
+    // Ceases to add to the log if errors occurred
+    if (LogDisplay.codeGeneratorErrorResults.length <= 0) {
+        var row = LogDisplay.codeGeneratorStringRowTemplate.format(message, object, memoryLocation);
+        LogDisplay.codeGeneratorInfoResults.push(row);
+    }
+};
+
+// Logs error information for the code generator
+LogDisplay.logCodeGeneratorErrorResult = function(message) {
+    var row = LogDisplay.codeGeneratorErrorRowTemplate.format(message);
+    LogDisplay.codeGeneratorInfoResults.push(row);
+    LogDisplay.codeGeneratorErrorResults.push(row);
+};
+
+// Logs  scope action for the semantic analyzer
+LogDisplay.logCodeGeneratorEnteringScopeResult = function(lineNumber, scope) {
+    // Ceases to add to the log if errors occurred
+    if (LogDisplay.codeGeneratorErrorResults.length <= 0) {
+        var cell = LogDisplay.semanticAnalyzerEnteringScopeCellTemplate.format(scope);
+        LogDisplay.codeGeneratorInfoResults.push(LogDisplay.semanticAnalyzerInfoRowTemplate.format(lineNumber, cell));
+    }
+};
+
+// Logs a leaving scope action for the semantic analyzer
+LogDisplay.logCodeGeneratorLeavingScopeResult = function(lineNumber, scope) {
+    // Ceases to add to the log if errors occurred
+    if (LogDisplay.codeGeneratorErrorResults.length <= 0) {
+        var cell = LogDisplay.semanticAnalyzerLeavingScopeCellTemplate.format(scope);
+        LogDisplay.codeGeneratorInfoResults.push(LogDisplay.semanticAnalyzerInfoRowTemplate.format(lineNumber, cell));
+    }
+};
+
 // Summarizes all data at the end in case the log is switched to simple mode
 LogDisplay.summarize = function() {
     // If there aren't any errors, display a success row 
@@ -224,6 +310,11 @@ LogDisplay.summarize = function() {
             LogDisplay.parserInfoResults.push(successRow);
             if (LogDisplay.semanticAnalyzerErrorResults.length === 0) {
                 LogDisplay.semanticAnalyzerInfoResults.push(successRow);
+                if (LogDisplay.codeGeneratorErrorResults.length === 0) {
+                    LogDisplay.codeGeneratorInfoResults.push(successRow);
+                } else {
+                    LogDisplay.codeGeneratorInfoResults.push(failureRow);
+                }
             } else {
                 LogDisplay.semanticAnalyzerInfoResults.push(failureRow);
             }
@@ -239,7 +330,7 @@ LogDisplay.summarize = function() {
 LogDisplay.populate = function() {
     // Disable all jump button in case a respective log component is not displayed
     $(".jump-button").attr('disabled', true);
-    
+
     // Empty out old content
     LogDisplay.display.empty();
 
@@ -247,20 +338,24 @@ LogDisplay.populate = function() {
     LogDisplay.printResults("Error", LogDisplay.scannerErrorResults, "danger");
     LogDisplay.printResults("Error", LogDisplay.parserErrorResults, "danger");
     LogDisplay.printResults("Error", LogDisplay.semanticAnalyzerErrorResults, "danger");
+    LogDisplay.printResults("Error", LogDisplay.codeGeneratorErrorResults, "danger");
     LogDisplay.printResults("Warning", LogDisplay.semanticAnalyzerWarningResults, "warning");
     LogDisplay.printResults("Warning", LogDisplay.scannerWarningResults, "warning");
-    
+
     // If simple mode is activated, display only the last row which says success or failure
-    var scannerResults = LogDisplay.verboseMode ? LogDisplay.scannerInfoResults : LogDisplay.scannerInfoResults.slice(-1);    
+    var scannerResults = LogDisplay.verboseMode ? LogDisplay.scannerInfoResults : LogDisplay.scannerInfoResults.slice(-1);
     LogDisplay.printResults("Scanner", scannerResults, "success");
-    
+
     // If simple mode is activated, display only the last row which says success or failure
-    var parserResults = LogDisplay.verboseMode ? LogDisplay.parserInfoResults : LogDisplay.parserInfoResults.slice(-1);   
+    var parserResults = LogDisplay.verboseMode ? LogDisplay.parserInfoResults : LogDisplay.parserInfoResults.slice(-1);
     LogDisplay.printResults("Parser", parserResults, "success");
-    
+
     // If simple mode is activated, display only the last row which says success or failure
-    var semanticAnalyzerResults = LogDisplay.verboseMode ? LogDisplay.semanticAnalyzerInfoResults : LogDisplay.semanticAnalyzerInfoResults.slice(-1);   
+    var semanticAnalyzerResults = LogDisplay.verboseMode ? LogDisplay.semanticAnalyzerInfoResults : LogDisplay.semanticAnalyzerInfoResults.slice(-1);
     LogDisplay.printResults("Semantic Analyzer", semanticAnalyzerResults, "success");
+
+    var codeGeneratorResults = LogDisplay.verboseMode ? LogDisplay.codeGeneratorInfoResults : LogDisplay.codeGeneratorInfoResults.slice(-1);
+    LogDisplay.printResults("Code Generator", codeGeneratorResults, "success");
 };
 
 // Prints the results to the screen
@@ -269,10 +364,10 @@ LogDisplay.printResults = function(header, results, severity) {
         var id = header.toLowerCase().replace(/\s/, "-");
         var buttonId = "#" + id + "-jump-button";
         var logId = id + "-log";
-        
+
         // Re-enable the button if the log exists
         $(buttonId).attr('disabled', false);
-        
+
         LogDisplay.display.append(LogDisplay.headerRowTemplate.format(header, severity, logId));
         for (var i = 0; i < results.length; i++) {
             LogDisplay.display.append(results[i]);
@@ -291,6 +386,8 @@ LogDisplay.clear = function() {
     LogDisplay.semanticAnalyzerInfoResults = [];
     LogDisplay.semanticAnalyzerErrorResults = [];
     LogDisplay.semanticAnalyzerWarningResults = [];
+    LogDisplay.codeGeneratorInfoResults = [];
+    LogDisplay.codeGeneratorErrorResults = [];
 };
 
 // Jumps to a specific element in the log
@@ -313,7 +410,7 @@ LogDisplay.changeVerboseMode = function() {
         LogDisplay.verboseButton.html("Verbose");
         LogDisplay.verboseMode = false;
     }
-    
+
     // Make sure we populated the display after the button is clicked
     LogDisplay.populate();
 };
