@@ -78,12 +78,12 @@ TreeDisplay.populateAndGenerateTree = function(tree, element) {
 // Registers scope to the symbol tree
 TreeDisplay.addScope = function(scope) {
     // Pushes the node representing scope onto array
-    var parentId = (scope.model.level !== 1) ? scope.parent.model.level.toString() : "#";
+    var parentId = (scope.model.scopeId !== 1) ? scope.parent.model.scopeId.toString() : "#";
     TreeDisplay.symbolTreeJson.push({
-        "id": scope.model.level.toString(),
+        "id": scope.model.scopeId.toString(),
         "icon": false,
         "parent": parentId,
-        "text": TreeDisplay.scopeTemplate.format(scope.model.level - 1),
+        "text": TreeDisplay.scopeTemplate.format(scope.model.scopeId - 1),
         state: {
             opened: true
         }
@@ -94,9 +94,9 @@ TreeDisplay.addScope = function(scope) {
 TreeDisplay.addSymbol = function(scope, variable, type) {       
         // Pushes the above data to the JSON element to be displayed
         TreeDisplay.symbolTreeJson.push({
-            "id": scope.model.level + "-" + variable,
+            "id": scope.model.scopeId + "-" + variable,
             "icon": false,
-            "parent": scope.model.level.toString(),
+            "parent": scope.model.scopeId.toString(),
             "text": TreeDisplay.variableTemplate.format(type, variable),
             state: {
                 opened: true
