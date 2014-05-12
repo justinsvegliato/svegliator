@@ -50,16 +50,17 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="col-xs-12">
-                                    <h6 class="panel-title">Log</h6>
+                                    <h6 id="log-header" class="panel-title">Log</h6>
                                     <span id="log-controls" class="pull-right">
                                         <button id="verbose-button" type="button" class="btn btn-xs btn-primary pull-right">Verbose</button>                                            
 
                                         <span class="btn-group pull-right">
-                                            <button id="error-jump-button" type="button" class="btn btn-xs btn-danger jump-button" disabled>Error</button>
-                                            <button id="warning-jump-button" type="button" class="btn btn-xs btn-warning jump-button" disabled>Warning</button>
+                                            <button id="error-jump-button" type="button" class="btn btn-xs btn-danger jump-button" disabled><span class="glyphicon glyphicon-remove"></span></button>
+                                            <button id="warning-jump-button" type="button" class="btn btn-xs btn-warning jump-button" disabled><span class="glyphicon glyphicon-warning-sign"></span></button>
                                             <button id="scanner-jump-button" type="button" class="btn btn-xs btn-success jump-button" disabled>Scanner</button>
                                             <button id="parser-jump-button" type="button" class="btn btn-xs btn-success jump-button" disabled>Parser</button>
                                             <button id="semantic-analyzer-jump-button" type="button" class="btn btn-xs btn-success jump-button" disabled>Semantic Analyzer</button>
+                                            <button id="code-generator-jump-button" type="button" class="btn btn-xs btn-success jump-button" disabled>Code Generator</button>
                                         </span>
                                     </span>
                                 </div>
@@ -108,12 +109,18 @@
 
             <div class="row">
                 <ul id="myTab" class="nav nav-tabs nav-justified">
-                    <li class="active"><a href="#concreteSyntaxTree" data-toggle="tab"><strong>Concrete Syntax Tree</strong></a></li>
+                    <li class="active"><a href="#machine-code" data-toggle="tab"><strong>Machine Code</strong></a></li>
+                    <li><a href="#concreteSyntaxTree" data-toggle="tab"><strong>Concrete Syntax Tree</strong></a></li>
                     <li><a href="#abstractSyntaxTree" data-toggle="tab"><strong>Abstract Syntax Tree</strong></a></li>
+                    
                 </ul>
+                
                 <div id="tree-display-container" class="panel panel-default">
                     <div id="tree-display" class="tab-content">
-                        <div class="tab-pane active fade in" id="concreteSyntaxTree">
+                        <div onclick="CodeDisplay.selectText('machine-code')" class="tab-pane active fade in" id="machine-code">
+                            <h6 class="lead text-center">No machine code</h6>
+                        </div>
+                        <div class="tab-pane fade" id="concreteSyntaxTree">
                             <h6 class="lead text-center">No concrete syntax tree</h6>
                         </div>
                         <div class="tab-pane fade" id="abstractSyntaxTree">
@@ -126,7 +133,7 @@
                     </div>
                 </div>
             </div>
-        </div>     
+        </div>    
 
         <!-- Dependencies needed for all aspects of the application -->
         <script src="assets/js/jquery.js"></script>
@@ -137,14 +144,15 @@
         <script src="assets/js/tree-model.js"></script>
         <script src="assets/js/marquee.js"></script>
 
-        <!-- Dependencies need for displaying data to the screen -->
+        <!-- Dependencies needed for displaying data to the screen -->
         <script src="assets/js/system/display/log-display.js"></script>
         <script src="assets/js/system/display/tree-display.js"></script>
         <script src="assets/js/system/display/symbol-table-display.js"></script>
         <script src="assets/js/system/display/token-stream-display.js"></script>
         <script src="assets/js/system/display/program-selector.js"></script>        
+        <script src="assets/js/system/display/code-display.js"></script>
 
-        <!-- Dependencies need to compile the code -->
+        <!-- Dependencies needed to compile the code -->
         <script src="assets/js/system/control.js"></script>
         <script src="assets/js/system/compiler/nonterminal.js"></script>
         <script src="assets/js/system/compiler/concrete-syntax-tree.js"></script>
@@ -154,5 +162,9 @@
         <script src="assets/js/system/compiler/scanner.js"></script>
         <script src="assets/js/system/compiler/parser.js"></script> 
         <script src="assets/js/system/compiler/semantic-analyzer.js"></script> 
+        <script src="assets/js/system/compiler/code-generator.js"></script> 
+        <script src="assets/js/system/compiler/code.js"></script> 
+        <script src="assets/js/system/compiler/jump-table.js"></script> 
+        <script src="assets/js/system/compiler/static-data-table.js"></script> 
     </body>
 </html>

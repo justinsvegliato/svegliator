@@ -112,27 +112,27 @@ body {
 }
 
 #program-input {
-    height: 366px;
+    height: 336px;
     width: 440px;
     border-radius: 4px;
 }
 
 #log-display {
-    height: 137px;
+    height: 119px;
     overflow-x: hidden;
     overflow-y: auto;
 }
 
 #tree-display {
-    height: 130px;
+    height: 165px;
     overflow-x: hidden;
     overflow-y: auto;
 }
 
 #log-controls {
     position: absolute;
-    top: -3px;
-    left: 70px;
+    top: -2px;
+    left: 35px;
 }
 
 #program-input-container {
@@ -160,5 +160,16 @@ body {
 #symbol-display-container {
     overflow-x: hidden;
     overflow-y: auto;
-    height: 130px;
+    height: 117px;
+}
+
+#machine-code {
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    font-family: monospace;
+}
+#log-header {
+    margin-left: -19px;
 }

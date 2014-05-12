@@ -14,143 +14,160 @@ ProgramSelector.programLinkId = "#programs a";
 // All the example programs
 ProgramSelector.programs = {
     "correct program 1": 
-        '{\n' +
-        '    int a\n' + 
-        '    a = 1\n' +
-        '    {\n' +
-        '        int a\n' +
-        '        a = 2\n' +
-        '        print(a)\n' +
-        '    }\n' +
-        '\n' +
-        '    string b\n' +
-        '    b = \"alan\"\n' +
-        '    if (a == 1) {\n' +
-        '        print(b)\n' +
-        '    }\n' +
-        '\n' +
-        '    string c\n' +
-        '    c = \"james\"\n' +
-        '    b = \"blackstone\"\n' +
-        '    print(b)\n' +
-        '} $',
-    "correct program 2" : 
-        '{\n' + 
-        '    int a\n' +
-        '    a = 0\n' + 
-        '    \n' +
-        '    while (a != 9) {\n' +
-        '       if (a != 5) {\n' +
-        '           print("meow")\n' +
-        '       }\n' +
-        '       {\n' +
-        '           a = 1 + a\n' +
-        '           string b\n' +
-        '           b = "next cat"\n' +
-        '           print(b)\n' +
-        '       }\n' +
-        '    }\n' +
-        '    \n' +
-        '    {}\n' +
-        '    boolean c\n' +
-        '    c = true\n' +
-        '    \n' + 
-        '    boolean d\n' +
-        '    d = (true == (true == false))\n' +
-        '} $',
-    "correct program with warnings" : 
-        '{\n' + 
-        '    boolean d\n' +
-        '    int a\n' +
-        '    int b\n' +
-        '    int e\n' +
-        '    string x\n' +
-        '    \n' +
-        '    d = (a == b)\n' +
-        '    d = (1 == a)\n' +
-        '    d = (1 != 1)\n' +
-        '    d = (d != false)\n' +
-        '    d = ("string" != "string")\n' +
-        '    \n' +
-        '    if (d == true) {\n' +
-        '        int c\n' +
-        '        c = 1 + a\n' +
-        '        if (c == a) {\n' +
-        '            print("test")\n' +
-        '        }\n' +
-        '    }\n' +
-        '    \n' +
-        '    while ("string" == x) {\n' +
-        '        while (false == true) {\n' +
-        '            a = 1 + 9\n' +
-        '        }\n' +
-        '    }\n' +
-        '} $',
-     "incorrect program 1" : 
-        '{\n' + 
-        '    boolean d\n' +
-        '    string b\n' +
-        '    int a\n' +
-        '    a = (a == b)\n' +
-        '    d = (1 == a)\n' +
-        '    d = (1 != 1)\n' +
-        '    b = ("string" == 1)\n' +
-        '    d = (a != "string")\n' +
-        '    d = ("string" != "string")\n' +
-        '    \n' +
-        '    if (d == true) {\n' +
-        '        int c\n' +
-        '        c = 1 + d\n' +
-        '        if (c == 1) {\n' +
-        '            print("test")\n' +
-        '        }\n' +
-        '    }\n' +
-        '    \n' +
-        '    while ("string" == a) {\n' +
-        '        while (1 == true) {\n' +
-        '            a = 1 + "string"\n' +
-        '        }\n' +
-        '    }\n' +
-        '} $',
-    "incorrect program 2" : 
-        '{\n' + 
-        '    boolean d\n' +    
-        '    d = ((true == 1) != (("x" == false) == (1 != d)))\n' +    
-        '\n' +
-        '    int a\n' +    
-        '    a = 1 + 2 + 4 + 8 + true\n' +    
-        '    a = 9 + "a"\n' +    
-
-        '    boolean x\n' +    
-        '    x = true\n' +    
-        '\n' +
-        '    y = false\n' +    
-        '} $',
-    "incorrect program 3": 
-        '{\n' +
-        '   int a\n' +
-        '   a = 1\n' +
-        '   {\n' +
-        '       int a\n' +
-        '       {\n' +
-        '           a = 6\n' +
-        '           {\n' +
-        '               b = 7\n' +
-        '           }\n' +
-        '           int b\n' +
-        '           b = 5\n' +
-        '       }\n' +
-        '       {\n' +
-        '           boolean b\n' +
-        '           b = true\n' +
-        '       }\n' +
-        '       {}{}{}{}{{{}}}\n' +
-        '       int a\n' +
-        '       a = 2\n' +
-        '       print(z)\n' +
-        '       b = 1\n' +
-        '   }\n' +
-        '} $\n'
+        "{\n" +
+        "    int a\n" +
+        "    a = 1\n" +
+        "    print(a)\n" +
+        "\n" +
+        "    {\n" +
+        "        int a\n" +
+        "        a = 2\n" +
+        "        print(a)\n" +
+        "    }\n" +
+        "\n" + 
+        "    {\n" +
+        "        int a\n" +
+        "        a = 3\n" +
+        "        print(a)\n" +
+        "    }\n" +
+        "\n" +
+        "    string s\n" +
+        "    s = \"stra\"\n" +
+        "    print(s)\n" +
+        "\n" +
+        "    s = \"strb\"\n" +
+        "    print(s)\n" +
+        "\n" + 
+        "    if (a != 5) {\n" +
+        "        print(\"true\")\n" +
+        "    }\n" +
+        "\n" +
+        "    if (a == 5) {\n" +
+        "        print(\"false\")\n" +
+        "    }\n" +
+        "} $",
+    "correct program 2":
+       "{\n" +
+       "    int a\n" +
+       "    a = 3\n" +
+       "    while (a == 3) {\n" +
+       "        print(1 + 2 + 3 + 4 + 5)\n" +
+       "        a = 1 + a\n" +
+       "    }\n" +
+       "    print((true == true))\n" +
+       "    print((false == false))\n" +
+       "} $\n",
+    "correct program 3":
+       "{\n" +
+       "    print((false == true))\n" +
+       "    print((true != true))\n" +
+       "    print((false != false))\n" +
+       "    print((false != true))\n" +
+       "} $",
+    "correct program 4":
+       "{\n" +
+       "    int a\n" +
+       "    a = 0\n" +
+       "    while (a != 5) {\n" +
+       "        print(a)\n" +
+       "        a = 1 + a\n" +
+       "    }\n" +
+       "\n" +
+       "    if (\"str\" == \"str\") {\n" +
+       "        print(\"they are equal\")\n" +
+       "    }\n" +
+       "\n" +
+       "    if (\"stra\" == \"strb\") {\n" +
+       "        print(\"no dice\")  \n" +
+       "    }\n" +
+       "\n" +
+       "    print((\"a\" != \"b\"))\n" +
+       "    print((\"a\" != \"a\"))\n" +
+       "} $",
+    "correct program 5":
+        "{\n" +
+        "    int a\n" +
+        "    int b\n" +
+        "\n" +
+        "    a = 0\n" +
+        "    b = 0\n" +
+        "\n" +
+        "    while (a != 3) {\n" +
+        "        print(a)\n" +
+        "        while (b != 3) {\n" +
+        "            print(b)\n" +
+        "            b = 1 + b\n" +
+        "            if (b == 2) {\n" +
+        "                print(\"meow\")\n" +
+        "            }\n" +
+        "        }\n" +
+        "        b = 0\n" +
+        "        a = 1 + a\n" +
+        "    }\n" +
+        "} $",
+    "correct program 6":
+        "{\n" +
+        "    string s\n" +
+        "    int a\n" +
+        "    a = 1\n" +
+        "    {\n" +
+        "        s = \"meow\"\n" +
+        "        int a\n" +
+        "        a = 2\n" +
+        "        print(a)\n" +
+        "    }\n" +
+        "    {\n" +
+        "        while (a != 5) {\n" +
+        "            a = 1 + a\n" +
+        "            print(a)\n" +
+        "        }\n" +
+        "        print(3 + a)\n" +
+        "        print(s)\n" +
+        "    }\n" +
+        "} $\n",
+     "incorrect program": 
+        "{\n" + 
+        "    int a\n" +
+        "    a = 1\n" +
+        "    print(a)\n" +
+        "\n" +
+        "    {\n" +
+        "        int a\n" +
+        "        a = 2\n" +
+        "        print(a)\n" +
+        "    }\n" +
+        "\n" +
+        "    {\n" +
+        "        int a\n" +
+        "        a = 3\n" +
+        "        print(a)\n" +
+        "    }\n" +
+        "\n" +
+        "    string s\n" +
+        "    s = \"stra\"\n" +
+        "    print(s)\n" +
+        "\n" +
+        "    s = \"strb\"\n" +
+        "    print((s == \"str\"))\n" +
+        "\n" +
+        "    if (a != 5) {\n" +
+        "        print((true == (s == s)))\n" +
+        "    }\n" +
+        "\n" +
+        "    if (a == 5) {\n" +
+        "        print(\"false\")\n" +
+        "    }\n" +
+        "\n" +
+        "    s = \"meowa\"\n" +
+        "    s = \"meowb\"\n" +
+        "    s = \"meowc\"\n" +
+        "    s = \"meowd\"\n" +
+        "    s = \"meowe\"\n" +
+        "    s = \"meowf\"\n" +
+        "\n" +
+        "    int z\n" +
+        "    z = 5\n" +
+        "} $\n"
 };
 
 // Populates the program dropdown with all of the programs
