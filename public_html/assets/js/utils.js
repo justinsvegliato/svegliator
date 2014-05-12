@@ -36,3 +36,8 @@ function pad(word, size, padder) {
     }
     return paddedWord;
 }
+
+// Converts a string to hexidecimal
+function toHexidecimal(str) {
+    return str.toString(16);
+}

@@ -12,7 +12,7 @@ Control.fadeInElement = $(".fadeIn");
 $(document).ready(function() {
     // Fades in every element with the class 'fadeIn'
     Control.fadeInElement.fadeIn();
-    
+
     // Adds sweet styling to the text area
     Control.programInput.linedtextarea();
 
@@ -24,6 +24,7 @@ $(document).ready(function() {
             SymbolTableDisplay.clear();
             TreeDisplay.clear();
             TokenStreamDisplay.clear();
+            CodeDisplay.clear();
 
             // Grabs the tokens from the scanner
             var tokens = Scanner.scan(Control.programInput.val());
@@ -40,11 +41,15 @@ $(document).ready(function() {
                     if (LogDisplay.semanticAnalyzerErrorResults.length <= 0) {
                         SymbolTableDisplay.populate();
                         TreeDisplay.populateSymbolTree(SemanticAnalyzer.symbolTable);
+                        CodeDisplay.display(CodeGenerator.getCode(abstractSyntaxTree));
+                        if (LogDisplay.codeGeneratorErrorResults.length > 0) {
+                            CodeDisplay.clear();
+                        }
                     }
                 } else {
                     TreeDisplay.clear();
                     SymbolTableDisplay.clear();
-                }      
+                }
 
                 // Always display the token stream at this point since scanner was successful
                 TokenStreamDisplay.populate(tokens);
@@ -81,9 +86,12 @@ $(document).ready(function() {
     LogDisplay.semanticAnalyzerJumpButton.on("click", function() {
         LogDisplay.jumpToLog($("#semantic-analyzer-log"));
     });
-    
+    LogDisplay.codeGeneratorJumpButton.on("click", function() {
+        LogDisplay.jumpToLog($("#code-generator-log"));
+    });
+
     // Switches between verbose and simple mode when the button is pressed
     LogDisplay.verboseButton.on("click", function() {
         LogDisplay.changeVerboseMode();
-    });   
+    });
 });

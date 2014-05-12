@@ -81,7 +81,8 @@ AbstractSyntaxTree.prototype.getObject = function(alias, lineNumber) {
     var object = {
         id: this.id++,
         value: alias,
-        lineNumber: lineNumber
+        lineNumber: lineNumber,
+        scope: null
     };
     return this.tree.parse(object);
 };
