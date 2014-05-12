@@ -49,7 +49,7 @@ SemanticAnalyzer.typeCheck = function(node) {
 SemanticAnalyzer.typeCheckBlock = function(node) {
     // Create a new scope since we hit a block
     SemanticAnalyzer.symbolTable.enterScope();
-    LogDisplay.logSemanticAnalyzerEnteringScopeResult(node.model.lineNumber, SemanticAnalyzer.symbolTable.currentScope.model.level);
+    LogDisplay.logSemanticAnalyzerEnteringScopeResult(node.model.lineNumber, SemanticAnalyzer.symbolTable.currentScope.model.scopeId);
     
     // Type check every statement associated with the specified block
     for (var i = 0; i < node.children.length; i++) {
@@ -57,7 +57,7 @@ SemanticAnalyzer.typeCheckBlock = function(node) {
     }
     
     // Exit the current scope since the block is over
-    LogDisplay.logSemanticAnalyzerLeavingScopeResult(node.model.lineNumber, SemanticAnalyzer.symbolTable.currentScope.model.level);
+    LogDisplay.logSemanticAnalyzerLeavingScopeResult(node.model.lineNumber, SemanticAnalyzer.symbolTable.currentScope.model.scopeId);
     SemanticAnalyzer.symbolTable.exitScope();
 };
 
@@ -114,12 +114,12 @@ SemanticAnalyzer.typeCheckVariableDeclaration = function(node) {
     var rightNode = node.children[1];
     
     var type = leftNode.model.value;
-    var identifier = rightNode.model.value;           
+    var identifier = rightNode.model.value;
     
     LogDisplay.logSemanticAnalyzerInfoResult(rightNode.model.lineNumber, "Analyzing", "variable declaration");
     
     // If the symbol doesn;t exist, add it to the symbol table (otherwise we throw an error)
-    LogDisplay.logSemanticAnalyzerAddingSymbolResult(node.model.lineNumber, identifier, type, SemanticAnalyzer.symbolTable.currentScope.model.level - 1);
+    LogDisplay.logSemanticAnalyzerAddingSymbolResult(node.model.lineNumber, identifier, type, SemanticAnalyzer.symbolTable.currentScope.model.scopeId - 1);
     var symbol = SemanticAnalyzer.symbolTable.currentScope.model.variables[identifier];
     if (symbol) {        
         LogDisplay.logSemanticAnalyzerScopeErrorResult("Variable is already declared", rightNode.model.lineNumber, identifier);
