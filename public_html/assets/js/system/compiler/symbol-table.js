@@ -4,11 +4,11 @@
 
 // Initializes the symbol table
 function SymbolTable() {
-    this.scopeLevelId = 0;
+    this.scopeId = 0;
     this.tree = new TreeModel();
 
     // Sets the current scope to 0
-    this.currentScope = this.tree.parse(new Scope(this.scopeLevelId));
+    this.currentScope = this.tree.parse(new Scope(this.scopeId));
     this.root = this.currentScope;
 };
 
@@ -17,11 +17,11 @@ SymbolTable.prototype.addSymbol = function(type, variable, lineDeclared) {
     // Only add the symbol to the table if it does not yet exist
     if (!(variable in this.currentScope.model.variables)) {
         // Displays the symbol
-        SymbolTableDisplay.addSymbol(this.currentScope.model.level - 1, lineDeclared, variable, type);
+        SymbolTableDisplay.addSymbol(this.currentScope.model.scopeId - 1, lineDeclared, variable, type);
         TreeDisplay.addSymbol(this.currentScope, variable, type);
 
         // Creates the symbol and adds it to the current scope
-        var symbol = new Symbol(type, variable, lineDeclared);
+        var symbol = new Symbol(type, variable, lineDeclared, this.currentScope.model.scopeId);
         this.currentScope.model.variables[variable] = symbol;
         return symbol;
     }
@@ -31,7 +31,7 @@ SymbolTable.prototype.addSymbol = function(type, variable, lineDeclared) {
 // Enters a new scope (this is denoted by '{')
 SymbolTable.prototype.enterScope = function() {
     // Create a new scope
-    var scope = this.tree.parse(new Scope(++this.scopeLevelId));
+    var scope = this.tree.parse(new Scope(++this.scopeId));
 
     // Make this scope a child of the current scope
     this.currentScope.addChild(scope);
@@ -54,11 +54,28 @@ SymbolTable.prototype.checkScope = function(identifier) {
     return this.getVariableData(identifier, this.currentScope);
 };
 
-// Gets the scope at the specified level
-SymbolTable.prototype.getScope = function(level) {
+// Gets the scope at the specified id
+SymbolTable.prototype.getScope = function(scopeId) {
     return this.currentScope.first(function(node) {
-        return node.model.level === level;
+        return node.model.scopeId === scopeId;
+        
+        
     });
+};
+
+// Retrieves the scope which contains this identifier
+SymbolTable.prototype.getDeclarationScopeLevel = function(identifier, currentScopeId) {    
+    var getScope = function(scope) {
+        if (identifier in scope.model.variables) {
+            return scope.model.scopeId;
+        } else {
+            return getScope(scope.parent);
+        }    
+    };
+    
+    var scope = this.getScope(currentScopeId);    
+
+    return getScope(scope);
 };
 
 // Checks if every variable has been initialized or used (it outputs an error otherwise)
@@ -89,16 +106,17 @@ SymbolTable.prototype.getVariableData = function(identifier, scope) {
 };
 
 // Creates a class containing all information for symbols
-function Symbol(type, variable, lineNumber) {
+function Symbol(type, variable, lineNumber, scopeId) {
     this.type = type;
     this.variable = variable;
     this.lineNumber = lineNumber;
     this.isUsed = false;
     this.isInitilized = false;
+    this.scopeId = scopeId;
 };
 
 // Creates a class containing all information for scopes
-function Scope(level) {
-    this.level = level;
+function Scope(scopeId) {
+    this.scopeId = scopeId;
     this.variables = {};
 };
